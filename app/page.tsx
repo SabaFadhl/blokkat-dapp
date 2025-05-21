@@ -1,8 +1,13 @@
 "use client";
-
+import React,{useEffect} from "react";
 import { useWriteContract, useReadContract, useAccount } from "wagmi";
 
 export default function Home() {
+  const {address, isConnected} = useAccount();
+
+  useEffect(()=>{
+    console.log("Component started");
+  },[isConnected]);
   // Smart contract configuration: address and ABI
   const wagmiContractConfig = {
     address: "0x9A42354F90d888738B40442e3EF2b8c628ef5ef2",
@@ -43,7 +48,6 @@ export default function Home() {
     ],
   };
 
-  const {address, isConnected} = useAccount();
 
   // Hook to write to the contract (e.g., calling increment)
   const { writeContract } = useWriteContract();
