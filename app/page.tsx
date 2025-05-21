@@ -1,6 +1,6 @@
 "use client";
 
-import { useWriteContract, useReadContract } from "wagmi";
+import { useWriteContract, useReadContract, useAccount } from "wagmi";
 
 export default function Home() {
   // Smart contract configuration: address and ABI
@@ -43,6 +43,8 @@ export default function Home() {
     ],
   };
 
+  const {address, isConnected} = useAccount();
+
   // Hook to write to the contract (e.g., calling increment)
   const { writeContract } = useWriteContract();
 
@@ -81,7 +83,9 @@ export default function Home() {
         <w3m-button />
         <w3m-network-button />
       </div>
-
+      <div className="p-4 m-4 font-semibold rounded-lg bg-red-500">
+        {isConnected? `Connected: ${address}`: "Not Connected"}
+      </div>
       {/* Action buttons */}
       <div>
         <button
